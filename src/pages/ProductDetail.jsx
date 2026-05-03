@@ -10,48 +10,53 @@ function ProductDetail() {
     axios
       .get("https://myntra-clone-9o39.onrender.com/products")
       .then((res) => {
-        console.log("PRODUCT DATA:", res.data); // debug
-
-        const found = res.data.find(
-          (p) => p.id === Number(id), // 🔥 FIX
-        );
-
+        const found = res.data.find((p) => p.id === Number(id));
         setProduct(found);
       })
       .catch((err) => console.error(err));
   }, [id]);
 
-  const handleAddToCart = (item) => {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    const existing = cart.find((p) => p.id === item.id);
-
-    if (existing) {
-      existing.quantity += 1;
-    } else {
-      cart.push({ ...item, quantity: 1 });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Added to cart 🛒");
-  };
-
-  if (!product) return <p>Product not found...</p>;
+  if (!product) return <p className="p-4">Loading...</p>;
 
   return (
-    <div className="flex gap-10 p-10">
-      <img src={product.image} className="w-80 rounded" />
+    <div className="flex flex-col md:flex-row gap-6 p-4 md:p-8">
+      {/* Image */}
+      <div className="flex-1">
+        <img
+          src={product.image}
+          alt={product.title}
+          className="w-full h-72 md:h-auto object-cover rounded-lg shadow"
+        />
+      </div>
 
-      <div>
-        <h1 className="text-2xl font-bold">{product.title}</h1>
-        <p className="text-xl text-gray-600 mt-2">₹{product.price}</p>
+      {/* Info */}
+      <div className="flex-1">
+        <h1 className="text-xl md:text-2xl font-bold">{product.title}</h1>
 
-        <button
-          onClick={() => handleAddToCart(product)}
-          className="mt-6 bg-pink-500 text-white px-6 py-2 rounded hover:bg-pink-600"
-        >
-          Add to Cart
-        </button>
+        <p className="text-lg md:text-xl text-gray-700 mt-2">
+          ₹{product.price}
+        </p>
+
+        <div className="mt-2 text-green-600 font-semibold">
+          ★ 4.3 | 1.2k ratings
+        </div>
+
+        <div className="mt-6 flex flex-col md:flex-row gap-3">
+          <button className="bg-pink-500 text-white w-full md:w-auto px-6 py-3 rounded hover:bg-pink-600">
+            Add to Bag
+          </button>
+
+          <button className="border w-full md:w-auto px-6 py-3 rounded hover:bg-gray-100">
+            Wishlist ❤️
+          </button>
+        </div>
+
+        <div className="mt-6 text-gray-600">
+          <p>
+            Premium quality product designed for comfort and style. Perfect for
+            everyday wear.
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -5,20 +5,21 @@ function ProductCard({ id, title, price, image }) {
 
   return (
     <div
-      className="shadow-sm hover:shadow-xl"
       onClick={() => navigate(`/product/${id}`)}
-      className="bg-white rounded-lg overflow-hidden cursor-pointer group transition duration-300"
+      className="bg-white rounded-lg overflow-hidden cursor-pointer group shadow-sm hover:shadow-xl transition duration-300"
     >
       <div className="overflow-hidden">
         <img
           src={image}
           alt={title}
-          className="w-full h-64 object-cover group-hover:scale-105 transition duration-300"
+          className="w-full h-52 md:h-64 object-cover group-hover:scale-105 transition duration-300"
         />
       </div>
 
-      <div className="p-3">
-        <h3 className="text-sm font-semibold text-gray-800">{title}</h3>
+      <div className="p-2 md:p-3">
+        <h3 className="text-sm font-semibold text-gray-800 line-clamp-1">
+          {title}
+        </h3>
         <p className="text-gray-600 text-sm">₹{price}</p>
       </div>
     </div>
