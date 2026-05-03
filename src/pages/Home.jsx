@@ -10,9 +10,17 @@ function Home() {
 
   // 🔥 FILTER LOGIC
 
-  const men = products.filter((p) => p.category === "men");
-  const women = products.filter((p) => p.category === "women");
-  const kids = products.filter((p) => p.category === "kids");
+  const men = Array.isArray(products)
+    ? products.filter((p) => p.category === "men")
+    : [];
+
+  const women = Array.isArray(products)
+    ? products.filter((p) => p.category === "women")
+    : [];
+
+  const kids = Array.isArray(products)
+    ? products.filter((p) => p.category === "kids")
+    : [];
 
   useEffect(() => {
     axios
