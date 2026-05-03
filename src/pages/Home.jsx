@@ -16,7 +16,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/products")
+      .get("https://your-render-url/products")
       .then((res) => {
         setProducts(res.data);
       })
