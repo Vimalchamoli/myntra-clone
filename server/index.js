@@ -1,3 +1,17 @@
+const express = require("express");
+const cors = require("cors");
+
+const app = express();
+
+// ✅ allow frontend requests
+app.use(cors());
+
+// ✅ test route
+app.get("/", (req, res) => {
+  res.send("Backend is running");
+});
+
+// ✅ products route
 app.get("/products", (req, res) => {
   res.json([
     {
@@ -29,4 +43,11 @@ app.get("/products", (req, res) => {
       image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
     },
   ]);
+});
+
+// ✅ IMPORTANT: use dynamic port for Render
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
