@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { CartContext } from "../context/CartContext";
 
 function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     axios
@@ -42,7 +44,10 @@ function ProductDetail() {
         </div>
 
         <div className="mt-6 flex flex-col md:flex-row gap-3">
-          <button className="bg-pink-500 text-white w-full md:w-auto px-6 py-3 rounded hover:bg-pink-600">
+          <button
+            onClick={() => addToCart(product)}
+            className="bg-pink-500 text-white w-full md:w-auto px-6 py-3 rounded hover:bg-pink-600"
+          >
             Add to Bag
           </button>
 

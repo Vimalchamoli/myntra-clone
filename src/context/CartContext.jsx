@@ -3,18 +3,15 @@ import { createContext, useState, useEffect } from "react";
 export const CartContext = createContext();
 
 function CartProvider({ children }) {
-  // Load cart from localStorage
   const [cart, setCart] = useState(() => {
     const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : [];
   });
 
-  // Save cart to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  // Add to cart
   const addToCart = (product) => {
     const existing = cart.find((item) => item.id === product.id);
 
@@ -22,7 +19,7 @@ function CartProvider({ children }) {
       const updatedCart = cart.map((item) =>
         item.id === product.id
           ? { ...item, quantity: item.quantity + 1 }
-          : item
+          : item,
       );
       setCart(updatedCart);
     } else {
@@ -30,33 +27,26 @@ function CartProvider({ children }) {
     }
   };
 
-  // Remove item completely
   const removeFromCart = (id) => {
-    const updatedCart = cart.filter((item) => item.id !== id);
-    setCart(updatedCart);
+    setCart(cart.filter((item) => item.id !== id));
   };
 
-  // Increase quantity
   const increaseQty = (id) => {
-    const updatedCart = cart.map((item) =>
-      item.id === id
-        ? { ...item, quantity: item.quantity + 1 }
-        : item
+    setCart(
+      cart.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+      ),
     );
-    setCart(updatedCart);
   };
 
-  // Decrease quantity
   const decreaseQty = (id) => {
-    const updatedCart = cart
-      .map((item) =>
-        item.id === id
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-      .filter((item) => item.quantity > 0);
-
-    setCart(updatedCart);
+    setCart(
+      cart
+        .map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item,
+        )
+        .filter((item) => item.quantity > 0),
+    );
   };
 
   return (
