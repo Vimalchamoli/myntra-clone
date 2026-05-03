@@ -16,7 +16,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("https://your-render-url/products")
+      .get("https://myntra-clone-9o39.onrender.com")
       .then((res) => {
         setProducts(res.data);
       })
