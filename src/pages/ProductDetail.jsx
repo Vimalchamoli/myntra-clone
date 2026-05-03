@@ -7,10 +7,18 @@ function ProductDetail() {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/products").then((res) => {
-      const found = res.data.find((p) => p.id == id);
-      setProduct(found);
-    });
+    axios
+      .get("https://myntra-clone-9o39.onrender.com/products")
+      .then((res) => {
+        console.log("PRODUCT DATA:", res.data); // debug
+
+        const found = res.data.find(
+          (p) => p.id === Number(id), // 🔥 FIX
+        );
+
+        setProduct(found);
+      })
+      .catch((err) => console.error(err));
   }, [id]);
 
   const handleAddToCart = (item) => {
@@ -28,7 +36,7 @@ function ProductDetail() {
     alert("Added to cart 🛒");
   };
 
-  if (!product) return <p>Loading...</p>;
+  if (!product) return <p>Product not found...</p>;
 
   return (
     <div className="flex gap-10 p-10">
