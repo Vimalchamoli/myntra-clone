@@ -3,9 +3,12 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { CartContext } from "../context/CartContext";
 import { WishlistContext } from "../context/WishlistContext"; // ✅ ADD THIS
+import { useNavigate } from "react-router-dom";
 
 function ProductDetail() {
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
 
@@ -24,13 +27,42 @@ function ProductDetail() {
   if (!product) return <p>Loading...</p>;
 
   return (
-    <div>
-      <h1>{product.title}</h1>
+    <div className="max-w-6xl mx-auto p-4 md:p-8 grid md:grid-cols-2 gap-10">
+      {/* IMAGE */}
+      <div>
+        <img
+          src={product.image}
+          alt={product.title}
+          className="w-full h-72 md:h-auto object-cover rounded-lg shadow-md"
+        />
+      </div>
 
-      <button onClick={() => addToCart(product)}>Add to Bag</button>
+      {/* DETAILS */}
+      <div>
+        <h1 className="text-xl md:text-2xl font-semibold">{product.title}</h1>
 
-      {/* 👇 USE IT HERE */}
-      <button onClick={() => addToWishlist(product)}>Wishlist ❤️</button>
+        <p className="text-lg text-gray-700 mt-2">₹{product.price}</p>
+
+        {/* BUTTONS */}
+        <div className="mt-6 flex flex-col md:flex-row gap-4">
+          <button
+            onClick={() => addToCart(product)}
+            className="bg-pink-500 text-white px-6 py-3 rounded"
+          >
+            Add to Bag
+          </button>
+
+          <button
+            onClick={() => {
+              addToWishlist(product);
+              navigate("/wishlist");
+            }}
+            className="border px-6 py-3 rounded"
+          >
+            Wishlist ❤️
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
