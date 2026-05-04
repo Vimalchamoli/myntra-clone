@@ -5,12 +5,15 @@ import "./index.css";
 
 import { HashRouter } from "react-router-dom";
 import CartProvider from "./context/CartContext";
+import WishlistProvider from "./context/WishlistContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <HashRouter>
       <CartProvider>
-        <App />
+        <WishlistProvider>
+          <App />
+        </WishlistProvider>
       </CartProvider>
     </HashRouter>
   </React.StrictMode>,
