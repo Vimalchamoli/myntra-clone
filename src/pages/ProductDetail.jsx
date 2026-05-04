@@ -21,41 +21,68 @@ function ProductDetail() {
   if (!product) return <p className="p-4">Loading...</p>;
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 p-4 md:p-8">
-      {/* Image */}
-      <div className="flex-1">
+    <div className="max-w-6xl mx-auto p-4 md:p-8 grid md:grid-cols-2 gap-10">
+      {/* LEFT - IMAGE */}
+      <div>
         <img
           src={product.image}
           alt={product.title}
-          className="w-full h-72 md:h-auto object-cover rounded-lg shadow"
+          className="w-full h-72 md:h-auto object-cover rounded-lg shadow-md"
         />
       </div>
 
-      {/* Info */}
-      <div className="flex-1">
-        <h1 className="text-xl md:text-2xl font-bold">{product.title}</h1>
+      {/* RIGHT - DETAILS */}
+      <div>
+        <h1 className="text-xl md:text-2xl font-semibold">{product.title}</h1>
 
-        <p className="text-lg md:text-xl text-gray-700 mt-2">
-          ₹{product.price}
-        </p>
-
-        <div className="mt-2 text-green-600 font-semibold">
-          ★ 4.3 | 1.2k ratings
+        <div className="mt-2 text-green-600 font-medium">
+          ★ 4.3 | 1.2k Ratings
         </div>
 
-        <div className="mt-6 flex flex-col md:flex-row gap-3">
+        <div className="mt-3 flex items-center gap-3">
+          <span className="text-xl font-bold">₹{product.price}</span>
+          <span className="line-through text-gray-400">
+            ₹{product.price + 200}
+          </span>
+          <span className="text-pink-500 font-semibold">20% OFF</span>
+        </div>
+
+        <hr className="my-4" />
+
+        {/* SIZE */}
+        <p className="font-semibold">Select Size</p>
+        <div className="flex gap-3 mt-2">
+          {["S", "M", "L", "XL"].map((size) => (
+            <button
+              key={size}
+              className="border px-3 py-1 rounded hover:border-pink-500"
+            >
+              {size}
+            </button>
+          ))}
+        </div>
+
+        {/* BUTTONS */}
+        <div className="mt-6 flex flex-col md:flex-row gap-4">
           <button
             onClick={() => addToCart(product)}
-            className="bg-pink-500 text-white w-full md:w-auto px-6 py-3 rounded hover:bg-pink-600"
+            className="bg-pink-500 text-white px-6 py-3 rounded font-semibold hover:bg-pink-600"
           >
-            Add to Bag
+            ADD TO BAG
           </button>
 
-          <button className="border w-full md:w-auto px-6 py-3 rounded hover:bg-gray-100">
-            Wishlist ❤️
+          <button className="border px-6 py-3 rounded font-semibold hover:bg-gray-100">
+            WISHLIST ❤️
           </button>
         </div>
 
+        {/* DELIVERY */}
+        <div className="mt-6 text-sm text-gray-600">
+          <p>🚚 Delivery in 3-5 days</p>
+          <p>✔ 7 days return policy</p>
+        </div>
+
+        {/* DESCRIPTION */}
         <div className="mt-6 text-gray-600">
           <p>
             Premium quality product designed for comfort and style. Perfect for

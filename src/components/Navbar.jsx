@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <div className="bg-white shadow-sm sticky top-0 z-50 px-3 md:px-6 py-3 flex items-center justify-between flex-wrap">
+    <div className="bg-white shadow-sm sticky top-0 z-50 px-4 md:px-6 py-3 flex items-center justify-between">
       <h1 className="text-pink-500 font-bold text-xl">Myntra</h1>
 
       {/* Desktop Menu */}
