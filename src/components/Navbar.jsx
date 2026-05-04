@@ -1,6 +1,10 @@
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const { user, logout } = useContext(AuthContext);
+
   return (
     <div className="bg-white shadow-sm sticky top-0 z-50 px-4 md:px-6 py-3 flex items-center justify-between">
       <h1 className="text-pink-500 font-bold text-xl">Myntra</h1>
@@ -14,9 +18,15 @@ function Navbar() {
 
       {/* Right side */}
       <div className="flex gap-4 md:gap-6 text-sm">
-        <Link to="/">Profile</Link>
+        {user ? (
+          <button onClick={logout}>Logout</button>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
         <Link to="/wishlist">Wishlist ❤️</Link>
-        <Link to="/cart">Bag</Link>
+        <Link to="/cart">
+          <b>Bag</b>
+        </Link>
       </div>
     </div>
   );
